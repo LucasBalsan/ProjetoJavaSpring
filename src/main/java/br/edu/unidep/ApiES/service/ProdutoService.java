@@ -30,11 +30,11 @@ public class ProdutoService {
 		Marca marca = marcaRepositorio.findOne(produto.getMarca().getCodigo());			
 		Categoria categoria = categoriaRepositorio.findOne(produto.getCategoria().getCodigo());
 			
-		if (marca != null || !marca.isAtivo()) {
-			throw new MarcaInexistenteOuInativaException();
-		} else if (categoria != null || !categoria.isAtivo()) {
-			throw new CategoriaInexistenteOuInativaException();
-		}
+		//if (marca != null) {
+		//	throw new MarcaInexistenteOuInativaException();
+		//} else if (categoria != null) {
+		//	throw new CategoriaInexistenteOuInativaException();
+		//}
 		
 		BeanUtils.copyProperties(produto, produtoSalvo, "codigo");
 		return produtoRepositorio.save(produtoSalvo);
@@ -44,11 +44,11 @@ public class ProdutoService {
 		Marca marca = marcaRepositorio.findOne(produto.getMarca().getCodigo());			
 		Categoria categoria = categoriaRepositorio.findOne(produto.getCategoria().getCodigo());
 			
-		if (marca != null || !marca.isAtivo()) {
-			throw new MarcaInexistenteOuInativaException();
-		} else if (categoria != null || !categoria.isAtivo()) {
-			throw new CategoriaInexistenteOuInativaException();
-		}			
+		//if (marca != null) {
+		//	throw new MarcaInexistenteOuInativaException();
+		//} else if (categoria != null) {
+		//	throw new CategoriaInexistenteOuInativaException();
+		//}			
 					
 		return produtoRepositorio.save(produto);
 	}

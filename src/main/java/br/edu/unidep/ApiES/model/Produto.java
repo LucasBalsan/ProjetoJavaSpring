@@ -91,7 +91,7 @@ public class Produto {
 		this.marca = marca;
 	}	
 	
-	public boolean isAtivo() {
+	public boolean getAtivo() {
 		return ativo;
 	}
 
