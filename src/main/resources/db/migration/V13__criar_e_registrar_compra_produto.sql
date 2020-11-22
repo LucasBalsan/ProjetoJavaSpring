@@ -1,4 +1,4 @@
-CREATE TABLE programacao4trabalho1.compra_produto (
+CREATE TABLE compra_produto (
 	codigo_compra BIGINT(20) PRIMARY KEY AUTO_INCREMENT,
 	produto BIGINT(20) NOT NULL,    
 	quantidade INT NOT NULL,

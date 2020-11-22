@@ -21,10 +21,7 @@ public class Marca {
 	@NotNull
 	@Size(min = 5, max = 50)
 	private String nome;
-	
-	@NotNull
-	private boolean ativo;
-	
+
 	public Long getCodigo() {
 		return codigo;
 	}
@@ -41,19 +38,10 @@ public class Marca {
 		this.nome = nome;
 	}
 
-	public boolean isAtivo() {
-		return ativo;
-	}
-
-	public void setAtivo(boolean ativo) {
-		this.ativo = ativo;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + (ativo ? 1231 : 1237);
 		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
 		return result;
@@ -68,8 +56,6 @@ public class Marca {
 		if (getClass() != obj.getClass())
 			return false;
 		Marca other = (Marca) obj;
-		if (ativo != other.ativo)
-			return false;
 		if (codigo == null) {
 			if (other.codigo != null)
 				return false;

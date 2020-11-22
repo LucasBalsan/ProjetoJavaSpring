@@ -31,7 +31,8 @@ public class ApiESExceptionHandler extends ResponseEntityExceptionHandler {
 	   modelo (Exemplo: Marca) no servidor. Pois não pode ser lido. 
 	 */
 	@Override
-	protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+	protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex,
+			HttpHeaders headers, HttpStatus status, WebRequest request) {
 
 		String mensagemUsuario = messageSource.getMessage("mensagem.invalida", null, LocaleContextHolder.getLocale());
 
@@ -48,7 +49,8 @@ public class ApiESExceptionHandler extends ResponseEntityExceptionHandler {
 	 * 
 	 * */
 	@Override
-	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
+			HttpHeaders headers, HttpStatus status, WebRequest request) {
 		
 		List<Erro> erros = listaDeErros(ex.getBindingResult());
 		
@@ -59,9 +61,12 @@ public class ApiESExceptionHandler extends ResponseEntityExceptionHandler {
 	 * por qualquer motivo. (Exemplo: Quando tenta deletar um registro da tabela que não existe).
 	 */
 	@ExceptionHandler({ EmptyResultDataAccessException.class})
-	public ResponseEntity<Object> EmptyResultDataAccessException (EmptyResultDataAccessException ex, WebRequest request) {
+	public ResponseEntity<Object> EmptyResultDataAccessException (
+			EmptyResultDataAccessException ex,
+			WebRequest request) {
 		
-		String mensagemUsuario = messageSource.getMessage("recurso.nao.encontrado", null,  LocaleContextHolder.getLocale());
+		String mensagemUsuario = messageSource.getMessage("recurso.nao.encontrado", null, 
+										LocaleContextHolder.getLocale());
 		String mensagemDesenvolvedor = ex.toString();
 
 		List<Erro> erros = Arrays.asList(new Erro(mensagemUsuario, mensagemDesenvolvedor));

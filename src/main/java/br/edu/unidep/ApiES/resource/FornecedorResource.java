@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -38,6 +39,7 @@ public class FornecedorResource {
 	private ApplicationEventPublisher publisher;
 	
 	@GetMapping
+	@PreAuthorize("hasAuthority('ROLE_PESQUISAR_FORNECEDOR') and #oauth2.hasScope('read')")
 	public ResponseEntity<?> listar() {
 		List<Fornecedor> fornecedores = repositorio.findAll();
 		return !fornecedores.isEmpty() ? ResponseEntity.ok(fornecedores) :
@@ -45,6 +47,7 @@ public class FornecedorResource {
 	}
 	
 	@PostMapping
+	@PreAuthorize("hasAuthority('ROLE_CADASTRAR_FORNECEDOR') and #oauth2.hasScope('write')")
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<Fornecedor> salvar(@Valid @RequestBody Fornecedor fornecedor, HttpServletResponse response) {
 		Fornecedor fornecedorSalvo = repositorio.save(fornecedor);
@@ -55,6 +58,7 @@ public class FornecedorResource {
 	}
 	
 	@GetMapping("/{codigo_fornecedor}")
+	@PreAuthorize("hasAuthority('ROLE_PESQUISAR_FORNECEDOR') and #oauth2.hasScope('read')")
 	public ResponseEntity<Fornecedor> buscarPeloCodigo(@PathVariable Long codigo_fornecedor) {
 		Fornecedor fornecedor = repositorio.findOne(codigo_fornecedor);
 		if (fornecedor != null) {
@@ -64,12 +68,14 @@ public class FornecedorResource {
 	}
 	
 	@DeleteMapping("/{codigo_fornecedor}")
+	@PreAuthorize("hasAuthority('ROLE_REMOVER_FORNECEDOR') and #oauth2.hasScope('write')")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void remover(@PathVariable Long codigo_fornecedor) {
 		repositorio.delete(codigo_fornecedor);
 	}
 
 	@PutMapping("/{codigo_fornecedor}")
+	@PreAuthorize("hasAuthority('ROLE_CADASTRAR_FORNECEDOR') and #oauth2.hasScope('write')")
 	public ResponseEntity<Fornecedor> atualizar(@PathVariable Long codigo_fornecedor, @Valid @RequestBody Fornecedor fornecedor) {
 		Fornecedor fornecedorSalvo = fornecedorService.atualizar(codigo_fornecedor, fornecedor);
 		return ResponseEntity.ok(fornecedorSalvo);

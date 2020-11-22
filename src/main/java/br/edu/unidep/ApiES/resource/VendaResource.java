@@ -13,6 +13,7 @@ import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +23,7 @@ import br.edu.unidep.ApiES.event.ObjetoCriadoEvent;
 import br.edu.unidep.ApiES.exceptionhandler.ApiESExceptionHandler.Erro;
 import br.edu.unidep.ApiES.exceptionhandler.PessoaInexistenteOuInativaException;
 import br.edu.unidep.ApiES.model.Venda;
+import br.edu.unidep.ApiES.repository.VendaRepository;
 import br.edu.unidep.ApiES.service.VendaService;
 
 @RestController
@@ -36,6 +38,16 @@ public class VendaResource {
 	
 	@Autowired
 	private MessageSource messageSource;
+	
+	@Autowired
+	private VendaRepository repositorio;
+	
+	@GetMapping
+	public ResponseEntity<?> listar() {
+		List<Venda> vendas = repositorio.findAll();
+		return !vendas.isEmpty() ? ResponseEntity.ok(vendas) :
+			ResponseEntity.noContent().build();
+	}
 	
 	@PostMapping
 	public ResponseEntity<Venda> criar(@Valid @RequestBody Venda venda, HttpServletResponse response) {

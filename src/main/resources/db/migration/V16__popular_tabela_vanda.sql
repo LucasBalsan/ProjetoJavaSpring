@@ -1,0 +1,1 @@
+INSERT INTO VENDA (descricao, data_venda, data_pagamento, valor, observacao, tipo, codigo_pessoa)  VALUES ('Refrigerante Coca-Cola 2L', '2020-09-16', null, 8.75, 'Preço Reajustado', 'VISTA', 1)

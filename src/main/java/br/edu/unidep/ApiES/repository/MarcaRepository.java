@@ -6,4 +6,6 @@ import br.edu.unidep.ApiES.model.Marca;
 
 public interface MarcaRepository extends JpaRepository<Marca, Long> {
 
+	
+
 }

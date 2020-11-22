@@ -7,16 +7,16 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.edu.unidep.ApiES.exceptionhandler.DataDeCompraIncorretaException;
-import br.edu.unidep.ApiES.exceptionhandler.FornecedorInexistenteOuInativoException;
-import br.edu.unidep.ApiES.exceptionhandler.ProdutoInexistenteOuInativaException;
-import br.edu.unidep.ApiES.exceptionhandler.ValidadeLoteIncorretaException;
+//import br.edu.unidep.ApiES.exceptionhandler.DataDeCompraIncorretaException;
+//import br.edu.unidep.ApiES.exceptionhandler.FornecedorInexistenteOuInativoException;
+//import br.edu.unidep.ApiES.exceptionhandler.ProdutoInexistenteOuInativaException;
+//import br.edu.unidep.ApiES.exceptionhandler.ValidadeLoteIncorretaException;
 import br.edu.unidep.ApiES.model.CompraProdutos;
-import br.edu.unidep.ApiES.model.Fornecedor;
-import br.edu.unidep.ApiES.model.Produto;
+//import br.edu.unidep.ApiES.model.Fornecedor;
+//import br.edu.unidep.ApiES.model.Produto;
 import br.edu.unidep.ApiES.repository.CompraProdutoRepository;
-import br.edu.unidep.ApiES.repository.FornecedorRepository;
-import br.edu.unidep.ApiES.repository.ProdutoRepository;
+//import br.edu.unidep.ApiES.repository.FornecedorRepository;
+//import br.edu.unidep.ApiES.repository.ProdutoRepository;
 
 
 @Service
@@ -25,18 +25,18 @@ public class CompraProdutosService {
 	@Autowired
 	private CompraProdutoRepository compraRepositorio;
 	
-	@Autowired
-	private ProdutoRepository produtoRepositorio;
+	//@Autowired
+	//private ProdutoRepository produtoRepositorio;
 	
-	@Autowired
-	private FornecedorRepository fornecedorRepositorio;
+	//@Autowired
+	//private FornecedorRepository fornecedorRepositorio;
 	
 	public CompraProdutos atualizar(Long codigo, CompraProdutos compraProdutos) {
-		Date dataAtual = new Date();
+		//Date dataAtual = new Date();
 		
 		CompraProdutos compraProdutosSalvo = compraRepositorio.findOne(codigo);
-		Produto produto =  produtoRepositorio.findOne(compraProdutos.getProduto().getCodigo());
-		Fornecedor fornecedor = fornecedorRepositorio.findOne(compraProdutos.getFornecedor().getCodigo()); 
+		//Produto produto =  produtoRepositorio.findOne(compraProdutos.getProduto().getCodigo());
+		//Fornecedor fornecedor = fornecedorRepositorio.findOne(compraProdutos.getFornecedor().getCodigo()); 
 		
 		//if (produto != null) {
 		//	throw new ProdutoInexistenteOuInativaException();
@@ -58,8 +58,8 @@ public class CompraProdutosService {
 		System.out.println(dataAtual);
 		System.out.println(compraProdutos.getValidadeLote());
 		
-		Produto produto =  produtoRepositorio.findOne(compraProdutos.getProduto().getCodigo());
-		Fornecedor fornecedor = fornecedorRepositorio.findOne(compraProdutos.getFornecedor().getCodigo()); 
+		//Produto produto =  produtoRepositorio.findOne(compraProdutos.getProduto().getCodigo());
+		//Fornecedor fornecedor = fornecedorRepositorio.findOne(compraProdutos.getFornecedor().getCodigo()); 
 		
 		//if (produto != null) {
 		//	throw new ProdutoInexistenteOuInativaException();

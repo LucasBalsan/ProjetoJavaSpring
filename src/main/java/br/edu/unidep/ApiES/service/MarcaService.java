@@ -13,8 +13,10 @@ public class MarcaService {
 	@Autowired
 	private MarcaRepository repositorio;
 
-	public Marca atualizar(Long codigo, Marca marca) {		
-		Marca marcaSalva = repositorio.findOne(codigo);		
+	public Marca atualizar(Long codigo, Marca marca) {
+		
+		Marca marcaSalva = repositorio.findOne(codigo);
+		
 		BeanUtils.copyProperties(marca, marcaSalva, "codigo");
 		return repositorio.save(marcaSalva);
 	}

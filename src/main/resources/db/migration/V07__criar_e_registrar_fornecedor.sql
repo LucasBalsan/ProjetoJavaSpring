@@ -1,4 +1,4 @@
-CREATE TABLE programacao4trabalho1.fornecedor (
+CREATE TABLE fornecedor (
 	codigo_fornecedor BIGINT(20) PRIMARY KEY AUTO_INCREMENT,
 	nome VARCHAR(50) NOT NULL,
 	telefone VARCHAR(10),

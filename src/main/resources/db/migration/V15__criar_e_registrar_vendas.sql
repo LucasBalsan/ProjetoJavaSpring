@@ -1,0 +1,12 @@
+CREATE TABLE venda (
+	codigo_venda BIGINT(20) PRIMARY KEY AUTO_INCREMENT NOT NULL,
+	descricao VARCHAR(50) NOT NULL,
+	data_venda DATE NOT NULL,
+	data_pagamento DATE,
+	valor DECIMAL(10, 2) NOT NULL,
+	observacao VARCHAR(100),
+	tipo VARCHAR(20) NOT NULL,
+	codigo_pessoa BIGINT(20) NOT NULL,
+	FOREIGN KEY (codigo_pessoa) REFERENCES pessoa(codigo_pessoa)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+

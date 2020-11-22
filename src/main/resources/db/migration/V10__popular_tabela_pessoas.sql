@@ -1,0 +1,2 @@
+INSERT INTO PESSOA (nome, logradouro, numero, complemento, bairro, cep, cidade, estado, ativo)
+VALUES ('Lucas Balsa', 'Rua Soares Bento', 106, 'Trevo Itacolomi', 'Menino Deus', '85.509-400', 'Pato Branco', 'PR', true)

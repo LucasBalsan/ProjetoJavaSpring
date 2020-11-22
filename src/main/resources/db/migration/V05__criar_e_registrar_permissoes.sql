@@ -17,3 +17,6 @@ CREATE TABLE usuario_permissao(
 	FOREIGN KEY (codigo_usuario) REFERENCES usuario(codigo),
 	FOREIGN KEY (codigo_permissao) REFERENCES permissao(codigo)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+

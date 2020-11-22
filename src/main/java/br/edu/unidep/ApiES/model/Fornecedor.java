@@ -24,10 +24,10 @@ public class Fornecedor {
 	@Size(min = 5, max = 50)
 	private String nome;
 	
-	@Size(min = 10, max = 10)
+	@Size(min = 9, max = 15)
 	private String telefone;
-	
-	@Size(min = 11, max = 11)
+		
+	@Size(min = 9, max = 15)
 	private String celular;
 
 	@NotNull

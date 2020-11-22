@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,8 +38,18 @@ public class MarcaResource {
 	@Autowired
 	private ApplicationEventPublisher publisher;
 	
+	@GetMapping("/ok")
+	public String ok() {
+		return "OK";
+	}
+	
+	@GetMapping("/ola")
+	public String ola() {
+		return "ola";
+	}
 	
 	@GetMapping
+	@PreAuthorize("hasAuthority('ROLE_PESQUISAR_MARCA') and #oauth2.hasScope('read')")
 	public ResponseEntity<?> listar() {
 		List<Marca> marcas = repositorio.findAll();
 		return !marcas.isEmpty() ? ResponseEntity.ok(marcas) :
@@ -46,34 +57,43 @@ public class MarcaResource {
 	}
 	
 	@PostMapping
+	@PreAuthorize("hasAuthority('ROLE_CADASTRAR_MARCA') and #oauth2.hasScope('write')")
 	@ResponseStatus(HttpStatus.CREATED)
-	public ResponseEntity<Marca> salvar(@Valid @RequestBody Marca marca, HttpServletResponse response) {
-		Marca marcaSalva = repositorio.save(marca);		
+	public ResponseEntity<Marca> salvar(@Valid @RequestBody Marca marca,
+			HttpServletResponse response) {
+		Marca marcaSalva = repositorio.save(marca);
 		
-		publisher.publishEvent(new ObjetoCriadoEvent(this, response, marca.getCodigo()));
+		publisher.publishEvent(new ObjetoCriadoEvent(this, response, marcaSalva.getCodigo()));
 		
-		return ResponseEntity.status(HttpStatus.CREATED).body(marcaSalva);		
+		return ResponseEntity.status(HttpStatus.CREATED).body(marcaSalva);
+		
 	}
-	
 
 	@GetMapping("/{codigo_marca}")
-	public ResponseEntity<Marca> buscarPeloCodigo(@PathVariable Long codigo_marca) {
+	@PreAuthorize("hasAuthority('ROLE_PESQUISAR_MARCA') and #oauth2.hasScope('read')")
+	public ResponseEntity<Marca> buscarPeloCodigo(
+		   @PathVariable Long codigo_marca) {
 		Marca marca = repositorio.findOne(codigo_marca);
 		if ( marca != null) { 
 			return ResponseEntity.ok(marca);
 		} 
-		return ResponseEntity.notFound().build();	
+		return ResponseEntity.notFound().build();
+	
 	}
 	
-	@DeleteMapping("/{codigo_marca}")
+	@DeleteMapping("/{codigo}")
+	@PreAuthorize("hasAuthority('ROLE_REMOVER_MARCA') and #oauth2.hasScope('write')")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void remover(@PathVariable Long codigo_marca) {
-		repositorio.delete(codigo_marca);
+	public void remover(@PathVariable Long codigo) {
+		repositorio.delete(codigo);
 	}
 	
-	@PutMapping("/{codigo_marca}")
-	public ResponseEntity<Marca> atualizar(@PathVariable Long codigo_marca, @Valid @RequestBody Marca marca) {		
-		Marca marcaSalva = marcaService.atualizar(codigo_marca, marca);		
+	@PutMapping("/{codigo}")
+	@PreAuthorize("hasAuthority('ROLE_CADASTRAR_MARCA') and #oauth2.hasScope('write')")
+	public ResponseEntity<Marca> atualizar(@PathVariable Long codigo,
+			@Valid @RequestBody Marca marca) {
+		
+		Marca marcaSalva = marcaService.atualizar(codigo, marca);
 		return ResponseEntity.ok(marcaSalva);
 	}
 	

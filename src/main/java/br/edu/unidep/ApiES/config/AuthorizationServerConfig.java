@@ -26,9 +26,17 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 			.withClient("angular")
 			.secret("@ngular#")
 			.scopes("read", "write")
-			.authorizedGrantTypes("password" , "refresh_token")
-			.accessTokenValiditySeconds(1800)
+			.authorizedGrantTypes("password", "refresh_token")
+			.accessTokenValiditySeconds(2000)
+			.refreshTokenValiditySeconds(3600 * 4)
+		.and()
+			.withClient("android")
+			.secret("@ndro!$e")
+			.scopes("read")
+			.authorizedGrantTypes("password", "refresh_token")
+			.accessTokenValiditySeconds(2000)
 			.refreshTokenValiditySeconds(3600 * 4);
+		
 	}
 	
 	
@@ -41,7 +49,6 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 			.authenticationManager(authenticationManager);
 	}
 	
-
 	@Bean
 	public TokenStore tokenStore() {
 		return new JwtTokenStore(accessTokenConverter());
